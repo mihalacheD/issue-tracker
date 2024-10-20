@@ -1,14 +1,8 @@
-import { error } from "console";
 import { NextRequest, NextResponse } from "next/server";
-import { z } from 'zod';
 import prisma from '@/prisma/client'
+import { createIssueSchema } from '../../validationSchema';
 
 
-
-const createIssueSchema = z.object({
-  title: z.string().min(1).max(255),
-  description: z.string().min(1)
-})
 
 
 export async function POST(request: NextRequest) {
