@@ -1,10 +1,8 @@
 'use client';
 import { Callout, TextField, Button } from '@radix-ui/themes'
 import dynamic from 'next/dynamic';
-const SimpleMDE = dynamic(() => import('react-simplemde-editor'), {
-  ssr: false,
-  loading: () => <p>Loading...</p>,
-});
+const SimpleMDE = dynamic(() => import('react-simplemde-editor'),
+                                { ssr: false } );
 import { useForm, Controller, set } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import axios from 'axios'
@@ -33,7 +31,7 @@ const NewIssuePage = () => {
   const onSubmit = handleSubmit(async (data) => {
     try {
       setSubmitting(true)
-      await axios.post("/issues/new", data);
+      await axios.post("/api/issues", data);
       router.push('/issues')
     } catch (error) {
       setSubmitting(false)
@@ -59,10 +57,11 @@ const NewIssuePage = () => {
       <Controller
         name="description"
         control={control}
-        render={({ field }) => (
-          <SimpleMDE placeholder="Description" {...field} />
-         )}
-         />
+        render={({ field }) => {
+          const { ref, ...rest } = field; // removes ref
+          return <SimpleMDE placeholder="Enter the description" {...rest} />;
+        }}
+      />
          <ErrorMessage>{ errors.description?.message }</ErrorMessage>
       <Button disabled={isSubmitting}>Submit New Issue {isSubmitting && <Spinner/>}</Button>
     </form>
