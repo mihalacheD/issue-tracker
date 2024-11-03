@@ -5,6 +5,7 @@ import IssueActions from './IssueActions'
 
 
 
+
 const IssuesPage = async () => {
 
  const issues = await prisma.issue.findMany()
