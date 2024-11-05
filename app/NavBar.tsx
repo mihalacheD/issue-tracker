@@ -6,6 +6,7 @@ import { AiFillBug } from "react-icons/ai";
 import classnames from 'classnames';
 import { useSession } from 'next-auth/react';
 import { Box, Flex, Container, DropdownMenu, Avatar, Text } from '@radix-ui/themes';
+import Skeleton from '@/app/components/Skeleton';
 
 
 const NavBar = () => {
@@ -57,6 +58,8 @@ const NavLinks = () => {
 const AuthStatus = () => {
 
   const { status, data: session } = useSession();
+
+  if (status === "loading") return <Skeleton width='3rem'/>
 
   return(
 <Box>
