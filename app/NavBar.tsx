@@ -42,14 +42,15 @@ const NavBar = () => {
         <Flex>
           <Box>
           { status === "authenticated" &&
-                        <><DropdownMenu.Root>
+                        <DropdownMenu.Root>
                            <DropdownMenu.Trigger>
                              <Avatar
                                  src={session.user!.image!}
                                  fallback="?"
                                  size='2'
                                  radius='full'
-                                 className='cursor-pointer'/>
+                                 className='cursor-pointer'
+                                 referrerPolicy='no-referrer'/>
                            </DropdownMenu.Trigger>
                            <DropdownMenu.Content>
                              <DropdownMenu.Label>
@@ -59,8 +60,7 @@ const NavBar = () => {
                                 <Link href='/api/auth/signout'>Log out</Link>
                              </DropdownMenu.Item>
                            </DropdownMenu.Content>
-                          </DropdownMenu.Root>
-</>}
+                          </DropdownMenu.Root>}
           { status === "unauthenticated" && <Link href='/api/auth/signin'>Log in</Link>}
         </Box>
         </Flex>
