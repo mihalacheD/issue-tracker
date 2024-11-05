@@ -5,7 +5,8 @@ import { usePathname } from 'next/navigation';
 import { AiFillBug } from "react-icons/ai";
 import classnames from 'classnames';
 import { useSession } from 'next-auth/react';
-import { Box } from '@radix-ui/themes';
+import { Box, Flex, Container } from '@radix-ui/themes';
+
 
 const NavBar = () => {
 
@@ -20,11 +21,14 @@ const NavBar = () => {
 
 
   return (
-    <nav className='flex space-x-6 border-b mb-5 px-5 h-14 items-center'>
-      <Link href='/'><AiFillBug /></Link>
-      <ul className='flex space-x-6'>
-        {links.map(link =>
-              <li key={link.href} >
+    <nav className=' border-b mb-5 px-5 py-3'>
+      <Container>
+      <Flex justify='between'>
+        <Flex align='center' gap='3'>
+           <Link href='/'><AiFillBug /></Link>
+              <ul className='flex space-x-6'>
+               {links.map(link =>
+               <li key={link.href} >
                   <Link
                      className={classnames({
                               'text-zinc-900': link.href === currentPath,
@@ -32,12 +36,17 @@ const NavBar = () => {
                               'hover:text-zinc-800 transition-colors': true
                      })}
                      href={link.href}>{link.label}</Link>
-              </li>)}
-      </ul>
-      <Box>
-        { status === "authenticated" && <Link href='/api/auth/signout'>Log out</Link>}
-        { status === "unauthenticated" && <Link href='/api/auth/signin'>Log in</Link>}
-      </Box>
+                </li>)}
+             </ul>
+        </Flex>
+        <Flex>
+          <Box>
+          { status === "authenticated" && <Link href='/api/auth/signout'>Log out</Link>}
+          { status === "unauthenticated" && <Link href='/api/auth/signin'>Log in</Link>}
+        </Box>
+        </Flex>
+      </Flex>
+    </Container>
     </nav>
   )
 }
