@@ -6,6 +6,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import NavBar from './NavBar'
 import AuthProvider from "./auth/Provider";
+import  QueryClientProvider  from "./QueryClientProvider";
 
 
 
@@ -28,6 +29,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.variable}>
+        <QueryClientProvider>
         <AuthProvider>
           <Theme accentColor="violet" radius="large">
           <NavBar/>
@@ -38,7 +40,8 @@ export default function RootLayout({
           </main>
         </Theme>
       </AuthProvider>
+      </QueryClientProvider>
         </body>
     </html>
-  ) 
+  )
 }
