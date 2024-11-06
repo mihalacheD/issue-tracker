@@ -3,7 +3,7 @@ import prisma from "@/prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from 'next-auth'
 import authOptions from '@/app/auth/authOptions'
-
+ 
 
 
 export async function PATCH(request: NextRequest, { params}:{params: {id: string }}){
