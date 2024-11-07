@@ -1,10 +1,10 @@
 'use client';
-import { User, Issue } from '@prisma/client';
-import { Select } from '@radix-ui/themes'
+import { Skeleton } from '@/app/components';
+import { Issue, User } from '@prisma/client';
+import { Select } from '@radix-ui/themes';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { Skeleton } from '@/app/components';
-import toast, { Toaster } from 'react-hot-toast'
+import toast, { Toaster } from 'react-hot-toast';
 
 const AssigneeSelect = ({ issue }: { issue: Issue}) => {
 
@@ -19,19 +19,21 @@ const AssigneeSelect = ({ issue }: { issue: Issue}) => {
 
   if (error) return null;
 
+  const assignIssue = async (userId: string) => {
+      try {
+        await axios.patch('/api/issues/' + issue.id,
+             { assignedToUserId: userId === "unassigned" ? null: userId})
+      } catch (error) {
+        toast.error("Changes could not be saved.")
+      }
+}
+
 
   return (
     <>
     <Select.Root
           defaultValue={issue.assignedToUserId || "unassigned"}
-          onValueChange={async (userId) => {
-            try {
-              await axios.patch('/api/issues/' + issue.id,
-                   { assignedToUserId: userId === "unassigned" ? null: userId})
-            } catch (error) {
-              toast.error("Changes could not be saved.")
-            }
-    }}>
+          onValueChange={assignIssue}>
       <Select.Trigger placeholder='Assign...'/>
         <Select.Content>
           <Select.Group>
