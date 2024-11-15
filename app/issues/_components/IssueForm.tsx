@@ -59,8 +59,8 @@ const IssueForm = ({ issue }: Props) => {
         className='max-w-xl space-y-3'
         onSubmit={onSubmit}>
 
-      <TextField.Root defaultValue={issue?.title} placeholder='Title' { ...register('title')} >
-        <TextField.Slot />
+      <TextField.Root >
+        <TextField.Input  defaultValue={issue?.title} placeholder='Title' { ...register('title')}/>
       </TextField.Root>
       <ErrorMessage>{ errors.title?.message}</ErrorMessage>
       <Controller
