@@ -3,6 +3,9 @@ import { Avatar, Card, Flex, Heading, Table } from '@radix-ui/themes'
 import { IssueStatusBadge } from './components'
 import Link from 'next/link'
 
+
+export const dynamic = 'force-dynamic';
+
 const LatestIssues = async () => {
 
   const issues = await prisma.issue.findMany({
